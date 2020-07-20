@@ -1,0 +1,52 @@
+#include <bits/stdc++.h> 
+using namespace std;
+bool EqSubSetSum(int[],int);
+int main()
+{
+int arr[]={2,5,3,10,2,98};
+int n=6;
+bool res= EqSubSetSum(arr,n);
+cout<< "res is "<<res;
+return 0;
+}
+bool EqSubSetSum(int ar[],int n)
+{
+int Tot=0,sum=0;
+for(int i=0;i<n;i++)
+{
+    Tot=Tot+ar[i];
+    
+}
+if(Tot%2!=0)
+return false;
+else
+{
+sum=Tot/2;
+cout<<sum;
+int t[n+1][sum+1];
+
+for(int i =0;i<n+1;i++)
+for(int j=0;j<sum+1;j++)
+{
+if(i==0)
+t[i][j]=false;
+if(j==0)
+t[i][j]=true;
+
+}
+for(int i =1;i<n+1;i++)
+for(int j=1;j<sum+1;j++)
+{
+if(ar[i-1]<=j)
+
+t[i][j]=t[i-1][j-ar[i-1]]||t[i-1][j];
+
+else
+t[i][j]=t[i-1][j];
+}
+return t[n][sum];
+}
+}
+
+
+

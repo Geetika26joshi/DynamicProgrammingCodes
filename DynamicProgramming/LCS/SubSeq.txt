@@ -1,0 +1,87 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+#include<iostream>
+#include <bits/stdc++.h> 
+#include <algorithm>
+using namespace std;
+int t[1000][1000];
+string LCS(string,string,int,int);
+int main()
+{
+string x,y;
+cout<<"Enter String one and two\n";
+cin>>x;
+cin>>y;
+int n=y.length();
+int m=x.length();
+
+string res= LCS(x,y,m,n);
+cout<<"Longet SubSeq is "<<res;
+return 0;
+}
+string LCS(string x,string y,int m,int n)
+{string subseq="";
+for(int i =0;i<m+1;i++)
+for(int j=0;j<n+1;j++)
+{
+    if(i==0||j==0)
+    t[i][j]= 0;
+}
+for(int i=1;i<m+1;i++)
+for(int j=1;j<n+1;j++)
+ {   
+  if(x[i-1]==y[j-1])
+   t[i][j]=(1+ t[i-1][j-1]);
+  else
+  t[i][j]=max(t[i][j-1],t[i-1][j]);
+ }
+int len=t[m][n];
+
+
+    int i=m,j=n;
+    while(i>0 && j>0)
+    {
+        if(x[i-1]==y[j-1])
+        {
+            subseq.push_back(x[i-1]);
+            i=i-1;
+            j=j-1;
+            
+        }
+
+        else
+        {
+            if(t[i][j-1]>t[i-1][j])
+            
+                j--;
+            
+            else
+            
+                i--;
+            
+        }
+        
+    }    
+    int k=len-1;
+for(i = 0; i <=(len/2); i++)
+  {
+    char temp=subseq[i];
+    subseq[i]=subseq[k];
+    subseq[k]=temp;
+    k--;
+ 
+}
+  return subseq;
+}

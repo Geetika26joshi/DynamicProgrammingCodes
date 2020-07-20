@@ -1,0 +1,59 @@
+#include <bits/stdc++.h> 
+#include<vector>
+using namespace std;
+int MinDiffSubSets(int[],int,int);
+int main()
+{int sum=0;
+int ar[]={1,2,7};
+int n=3;
+for(int i=0;i<n;i++)
+{
+    sum+=ar[i];
+}
+int res=MinDiffSubSets(ar,n,sum);
+cout<<"result is "<<res;
+return 0;
+}
+int MinDiffSubSets(int ar[],int n,int sum)
+{ vector <int> v;
+    int m=0;
+   
+    int t[n+1][sum+1];
+for(int i =0;i<n+1;i++)
+for(int j=0;j<sum+1;j++)
+{
+if(i==0)
+t[i][j]=0;
+if(j==0)
+t[i][j]=1;
+
+}
+for(int i =1;i<n+1;i++)
+for(int j=1;j<sum+1;j++)
+{
+if(ar[i-1]<=j)
+{
+t[i][j]=t[i-1][j-ar[i-1]]||t[i-1][j];
+}
+else
+t[i][j]=t[i-1][j];
+}
+    
+   
+    for(int i=0;i<=sum/2;i++)
+    {
+        if(t[n][i]==1)
+        {
+            m++;
+        v.push_back(i);
+        }
+    }
+    for(int i=0;i<m;i++)
+    {
+        cout<<v.at(i)<<" ";
+    }
+    //auto i =v.back();
+    int diff=0;
+    diff=sum-2*(v[m-1]);
+    return diff;
+}

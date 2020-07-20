@@ -1,0 +1,27 @@
+#include <bits/stdc++.h> 
+using namespace std;
+int LCS(string,string,int,int);
+int main()
+{string x,y;
+cout<<"Enter String one and two\n";
+cin>>x;
+cin>>y;
+int n=y.length();
+int m=x.length();
+int res= LCS(x,y,m,n);
+cout<<"Longet SubSeq is "<<res;
+return 0;
+}
+int LCS(string x,string y,int m,int n)
+{
+    if(m==0||n==0)
+    return 0;
+    else{
+  if(x[m-1]==y[n-1])
+  return (1+ LCS(x,y,m-1,n-1));
+  else
+  return max(LCS(x,y,m,n-1),LCS(x,y,m-1,n));
+}
+} 
+  
+  
